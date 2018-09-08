@@ -1,0 +1,25 @@
+<div class="<?php echo $this->class; ?> workshops block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+
+<h2>Arbeitsgemeinschaften</h2>
+
+<div class="table"><table class="menuTable"><thead>
+	<tr>
+		<th>Name</th>
+		<th>Leitende</th>
+		<th>Klassenstufen</th>
+		<th>Zeitpunkt der Treffen</th>
+		<th>Ort</th>
+	</tr>
+</thead></tbody>
+	<?php foreach ($this->workshops as $arrWorkshop) : ?>
+	<tr <?php if ($arrWorkshop['page']) : ?>class="link" onclick="document.location='{{link_url::<?php echo $arrWorkshop['page']; ?>}}'"<?php endif;?>>
+		<th><?php echo $arrWorkshop['name']; ?></th>
+        <td><?php echo $arrWorkshop['leader']; ?><?php if ($arrWorkshop['secondLeader']) : ?> / <?php echo $arrWorkshop['secondLeader']; ?><?php endif; ?></td>
+        <td><?php if ($arrWorkshop['minGrade'] == $arrWorkshop['maxGrade']) : ?><?php echo $arrWorkshop['minGrade']; ?><?php endif; ?><?php if ($arrWorkshop['minGrade'] != $arrWorkshop['maxGrade']) : ?><?php echo $arrWorkshop['minGrade']; ?> - <?php echo $arrWorkshop['maxGrade']; ?><?php endif; ?></td>
+		<td><?= $arrWorkshop['time_string'] ?></td>
+		<td><?php echo $arrWorkshop['room']; ?></td>
+	</tr>
+	<?php endforeach; ?>
+</tbody></table></div>
+
+</div>

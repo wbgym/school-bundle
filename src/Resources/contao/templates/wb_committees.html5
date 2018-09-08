@@ -1,0 +1,89 @@
+<div class="<?php echo $this->class; ?> committees block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+
+	<?php if($this->data) : ?>
+		<?php $data = $this->data; ?>
+
+		<!-- student/teacher/parent committees -->
+
+		<?php foreach($data as $type => $arrTable) : ?>
+		
+			<?php if ($type == 'VTst' || $type == 'VTte' || $type == 'VTpa') : ?>
+				<h2><?= $GLOBALS['TL_LANG']['tl_committees']['typeOptions'][$type] ?></h2>
+				<div class="table"><table class="table"><tbody>
+					
+					<?php foreach($arrTable as $committee => $arrMembers) : ?>
+						<tr>
+							<th><?= $GLOBALS['TL_LANG']['tl_committees']['commission_options'][$committee] ?></th>
+							<td><?php foreach ($arrMembers as $elem) : ?><?= $elem['m_str'] ?> <br /><?php endforeach; ?></td>
+						</tr>
+					<?php endforeach; ?>
+				
+				</tbody></table></div>
+			<?php endif; ?>
+
+		<?php endforeach; ?>
+		
+		<!-- Schulkonferenz -->
+		
+		<?php if (isset($data['SKvs']) || isset($data['SKst']) || isset($data['SKte']) || isset($data['SKpa'])) : ?>
+		<h2>Schulkonferenz</h2><div class="table"><table><thead><th></th><th>Mitglieder</th><th>Stellvertreter</th></thead><tbody>
+			
+			<?php if(isset($data['SKvs'])) : ?>
+				<tr><th>Vorstand</th><th><?php echo $data['SKvs'][0]['m_str']; ?></th><?php if(isset($data['SKvsST'])) : ?><th><?php echo $data['SKvsST'][0]['m_str']; ?><br /></th><?php endif; ?></tr>
+			<?php endif; ?>
+			
+			<?php if(isset($data['SKst']) || isset($data['SKstST'])) : ?>
+				<tr><th>Schüler</th><td><?php foreach ($data['SKst'] as $elem) : ?><?= $elem['m_str'] ?><br /><?php endforeach; ?></td><td><?php foreach ($data['SKstST'] as $elem) : ?><?= $elem['m_str'] ?><br /><?php endforeach; ?></td></tr>
+			<?php endif; ?>
+			
+			<?php if(isset($data['SKte']) || isset($data['SKteST'])) : ?>
+				<tr><th>Lehrer</th><td><?php foreach ($data['SKte'] as $elem) : ?><?= $elem['m_str'] ?><br /><?php endforeach; ?></td><td><?php foreach ($data['SKteST'] as $elem) : ?><?= $elem['m_str'] ?><br /><?php endforeach; ?></td></tr>
+			<?php endif; ?>
+			
+			<?php if(isset($data['SKpa']) || isset($data['SKpaST'])) : ?>
+				<tr><th>Eltern</th><td><?php foreach ($data['SKpa'] as $elem) : ?><?= $elem['m_str'] ?><br /><?php endforeach; ?></td><td><?php foreach ($data['SKpaST'] as $elem) : ?><?= $elem['m_str'] ?><br /><?php endforeach; ?></td></tr>
+			<?php endif; ?>
+			
+		</tbody></table></div>
+		<?php endif; ?>
+		
+		<!-- Fachkonferenzen -->
+		
+		<?php if(isset($this->fks)) : ?>
+			<h2>Fachkonferenzen</h2><div class="table"><table><thead><th>Fachbereich</th><th>Fachkonferenzleiter</th><th>beratendes Mitglied Eltern</th><th>beratendes Mitglied Schüler</th></thead><tbody>
+			
+			<?php foreach ($this->fks as $fk) : ?>
+				<tr>
+					<th><?php echo $fk['name']; ?></th>
+					<td><?= $fk['t_str'] ?></td>
+					<td><?php if($fk['conference_parent']) : ?><?= $fk['p_str'] ?><?php endif; ?></td>
+					<td><?php if($fk['conference_student']) : ?><?= $fk['s_str'] ?><?php endif; ?></td>
+				</tr>
+			<?php endforeach; ?>
+			
+			</tbody></table></div>
+		<?php endif; ?>
+		
+		<!-- Schüler- und Elternsprecher -->
+			
+		<?php if(isset($this->courses)) : ?>
+			<h2>Eltern- und Schülervertreter</h2><div class="table"><table><thead><tr><th>Klasse/Kurs</th><th>Schülervertreter</th><th>Elternvertreter</th></tr></thead><tbody>
+			<?php foreach ($this->courses as $course) : ?>
+				<?php if($course['title'] != 'Jahrgang') : ?>
+				<tr>
+					<th><?= $course['string'] ?></th>
+					<td><?php if($course['classsp1']) : ?><?= $course['classsp1_str'] ?><?php endif; ?><?php if($course['classsp2']) : ?><br /><?= $course['classsp2_str'] ?><?php endif; ?></td>
+					<td><?php if($course['parentsp1']) : ?><?= $course['parentsp1_str'] ?><?php endif; ?><?php if($course['parentsp2']) : ?><br /><?= $course['parentsp2_str'] ?><?php endif; ?></td>
+				</tr>
+				<?php endif; ?>
+			<?php endforeach; ?>
+			
+			</tbody></table></div>
+		<?php endif; ?>
+		
+		
+	<?php else : ?>
+		Keine Gremieneinträge vorhanden.
+	<?php endif; ?>
+
+</div>

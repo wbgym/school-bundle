@@ -1,0 +1,23 @@
+<div class="<?php echo $this->class; ?> faculty_<?php echo $this->faculty; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+
+<h2><?php echo $this->facultyName; ?></h2>
+
+<div class="table"><table class="menuTable"><thead>
+	<tr>
+		<th>Fach</th>
+		<th>Fachbereichsleiter</th>
+		<th>Fachräume</th>
+	</tr>
+</thead></tbody>
+	<?php foreach ($this->subjects as $arrSubject) : ?>
+	<?php if($arrSubject['visible'] && $arrSubject['isSubject'] == 1) : ?>
+	<tr <?php if ($arrSubject['page']) : ?>class="link" onclick="document.location='{{link_url::<?php echo $arrSubject['page']; ?>}}'"<?php endif;?>>
+		<th><?php echo $arrSubject['name']; ?></th>
+        <td><?php echo $arrSubject['headTeacher']; ?></td>
+        <td><?php echo $arrSubject['rooms']; ?></td>
+	</tr>
+	<?php endif; ?>
+	<?php endforeach; ?>
+</tbody></table></div>
+
+</div>

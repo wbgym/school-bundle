@@ -1,0 +1,27 @@
+<section class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+<?php if ($this->headline): ?>
+
+<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+<?php endif; ?>
+
+<table><thead>
+	<tr>
+		<th>Name</th>
+		<th>Contao</th>
+		<th>E-Mail</th>
+		<th>Skype</th>
+		<th>Telefon</th>
+	</tr>
+</thead></tbody>
+	<?php foreach ($this->arrData['members'] as $arrMember) : ?>
+	<tr>
+		<td><?php echo $arrMember['firstname'].' '.$arrMember['lastname']; ?></td>
+		<td><?php echo $arrMember['username']; ?></td>
+		<td><?php if ($arrMember['email']) : ?><a href="mailto:<?php echo $arrMember['email']; ?>"><?php echo $arrMember['email']; ?></a><?php endif; ?></td>
+		<td><?php if ($arrMember['skypeName']) : ?><a href="skype:<?php echo $arrMember['skypeName']; ?>?add"><?php echo $arrMember['skypeName']; ?></a><?php endif; ?></td>
+		<td><?php echo $arrMember['mobile'] ? $arrMember['mobile'] : $arrMember['phone']; ?></td>
+	</tr>
+	<?php endforeach; ?>
+</body></table>
+
+</section>

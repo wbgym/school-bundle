@@ -1,0 +1,24 @@
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+    <?php if ($this->headline): ?>
+        <<?= $this->hl ?>><?= $this->headline ?></<?= $this->hl ?>>
+    <?php endif; ?>
+        <?php if (strlen($this->rooms) > 0) : ?>
+            <strong>Fachräume:</strong> <?= $this->rooms ?><br/>
+        <?php endif; ?>
+        <strong>Fachlehrer:</strong>
+    <ul>
+        <?php foreach ($this->teachers as $arrTeacher) : ?>
+            <?php if ($arrTeacher['disable'] != 1) : ?>
+				<li>
+					<?php
+					echo $arrTeacher['name'];
+					if ($arrTeacher['isHeadTeacher']) {
+						echo ' (' . $GLOBALS['TL_LANG']['wbgym'][($arrTeacher['gender'] == 'female') ? 'headTeacherFemale' : 'headTeacherMale'] . ')';
+					}
+					?>
+				<?php endif; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+
+</div>

@@ -1,0 +1,98 @@
+<div class="content-element vplan-module">
+<p><em>Letzte Aktualisierung: <?php echo date("d.m.Y, H:i", $this->last_modified); ?></em><p>
+
+
+<div class="vplan-block-header"><h2><?php echo $strWeekday; ?>
+<span class="vplan-week" style="color:#dd5247"> <?php echo $strWeek; ?></span></h2></div>
+
+
+<div class="vplan-block">
+<?php if (count($this->klausurplan) == null) : ?>
+<p>Es sind noch keine Klausurtermine vorhanden.</p></div>
+<?php continue; endif; ?>
+
+<div class="school-years">
+<ul>
+	<li class="sy-"><a>alle Klassen</a></li>
+	<?php for ($i = 0; $i < 2; $i++) : ?>
+	<li class="sy-<?php echo 11+$i; ?>"><a><?php echo 11+$i; ?>. Klasse</a></li>
+	<?php endfor; ?>
+</ul>
+</div>
+
+<div class="table"><table class="klausurplan">
+<thead>
+	<tr>
+		<th class="col_first">Stufe</th>
+			<th>Datum</th>
+			<th>Von</th>
+			<th>Bis</th>
+			<th>Kurs</th>
+			<th>Text</th>
+			<th>Name</th>
+			<th>Studt</th>
+	</tr>
+</thead>
+<tbody>
+	<?php foreach($this->klausurplan as $klausur) : ?>
+	<tr class="year year-<?php echo $klausur->stufe; ?>">
+			<td class="col_first"><?php echo $klausur->stufe; ?></td>
+			<td><?php echo $klausur->datum; ?></td>
+			<td><?php echo $klausur->von; ?></td>
+			<td><?php echo $klausur->bis; ?></td>
+			<td><?php echo $klausur->kurs; ?></td>			
+			<td><?php echo $klausur->text ?></td>
+			<td><?php echo $klausur->name; ?></td>			
+			<td><?php echo $klausur->studt ?></td>
+	</tr>
+	<?php endforeach; ?>
+</tbody>
+</table></div></div>
+
+
+<script type="text/javascript">
+	$(function() {
+		$('.school-years li').click(function() {
+			if (iCurrentStufe.length) {
+				$('.klausurplan .year-' + iCurrentStufe).hide();
+			} else {
+				$('.klausurplan tbody tr.year').hide();
+			}
+			
+			$('.school-years .sy-' + iCurrentStufe).find('a').css('border-bottom', 'none');
+			iCurrentStufe = $(this).attr('class').substring(3);
+			if (!iCurrentStufe) {
+				iCurrentStufe = '';
+			}
+			$('.school-years .sy-'+iCurrentStufe).find('a').css('border-bottom', '2px solid #f4c122');
+			
+			if (iCurrentStufe.length) {
+				localStorage['stufe'] = iCurrentStufe;
+				$('.klausurplan .year-'+iCurrentStufe).show();
+			} else {
+				localStorage.removeItem('stufe');
+				$('.klausurplan tbody tr').show();
+			}
+		});
+		
+<?php
+		if (FE_USER_LOGGED_IN) {
+			$objUser = \FrontendUser::getInstance();
+		}
+		$defaultStufe = FE_USER_LOGGED_IN ? $objUser->grade : '';
+		if ($defaultStufe < 10) {
+			$defaultStufe = '';
+		}
+?>
+		var iCurrentStufe = localStorage['stufe'] || <?php echo strlen($defaultStufe) ? $defaultStufe : '""'; ?>;
+		if (iCurrentStufe.length) {
+			$('.klausurplan .year').hide();
+			$('.klausurplan .year-'+iCurrentStufe).show();
+		}
+		$('.school-years .sy-'+iCurrentStufe).find ('a').css('border-bottom', '2px solid #f4c122');
+
+	});
+</script>
+
+
+</div>
