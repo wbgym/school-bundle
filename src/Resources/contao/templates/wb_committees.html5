@@ -29,7 +29,7 @@
 		<h2>Schulkonferenz</h2><div class="table"><table><thead><th></th><th>Mitglieder</th><th>Stellvertreter</th></thead><tbody>
 			
 			<?php if(isset($data['SKvs'])) : ?>
-				<tr><th>Vorstand</th><th><?php echo $data['SKvs'][0]['m_str']; ?></th><?php if(isset($data['SKvsST'])) : ?><th><?php echo $data['SKvsST'][0]['m_str']; ?><br /></th><?php endif; ?></tr>
+				<tr><th>Vorsitzende</th><th><?php echo $data['SKvs'][0]['m_str']; ?></th><?php if(isset($data['SKvsST'])) : ?><th><?php echo $data['SKvsST'][0]['m_str']; ?><br /></th><?php endif; ?></tr>
 			<?php endif; ?>
 			
 			<?php if(isset($data['SKst']) || isset($data['SKstST'])) : ?>
