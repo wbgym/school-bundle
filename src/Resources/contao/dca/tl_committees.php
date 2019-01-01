@@ -28,8 +28,8 @@ $GLOBALS['TL_DCA']['tl_committees'] = array(
 	// List
 	'list' => array(
 		'sorting' => array(
-			'mode'	=> 2,
-			'flag'		=> 1,
+			'mode'	=> 1,
+			'flag'		=> 12,
 			'fields'	=> array('type'),
 			'panelLayout' => 'filter,sort;search,limit',
 	),
@@ -149,7 +149,7 @@ $GLOBALS['TL_DCA']['tl_committees'] = array(
 			'label'		=> &$GLOBALS['TL_LANG']['tl_committees']['commission'],
 			'exclude'	=> false,
 			'inputType'	=> 'select',
-			'options'	=> array('Ssp','SspST','BLK','BEK','BSK','MdKs','MdKl','MdKe','Esp','EspST'),
+			'options_callback'	=> array('tl_committees','getCommissionOptions'),
 			'reference'	=> &$GLOBALS['TL_LANG']['tl_committees']['commission_options'],
 			'eval'		=> array('mandatory' => true, 'tl_class' =>'w50'),
 			'sql'		=> "varchar(64) NOT NULL default ''"
@@ -159,7 +159,8 @@ $GLOBALS['TL_DCA']['tl_committees'] = array(
 
 class tl_committees extends Backend
 {
-	public function generateListLabels($row, $label, DataContainer $dc, $args) {	
+	public function generateListLabels($row, $label, DataContainer $dc, $args) 
+	{	
 		switch($row['type']){
 			case 'SKst' :
 				$args = WBGym\WBGym::student($row['m_id'],false);
@@ -176,6 +177,9 @@ class tl_committees extends Backend
 			case 'SKvs' :
 				$args = $row['m_str'];
 				break;
+			case 'SKvsST' :
+				$args = $row['m_str'];
+				break;
 			case 'SKte' :
 				$args = WBGym\WBGym::teacher($row['m_id']);
 				break;
@@ -183,19 +187,48 @@ class tl_committees extends Backend
 				$args = WBGym\WBGym::teacher($row['m_id']);
 				break;
 			case 'VTpa' :
-				$args = WBGym\WBGym::cParent($row['p_id']) . ', ' . $GLOBALS['TL_LANG']['tl_committees']['commission_options'][$row['commission']];
+				$args = $GLOBALS['TL_LANG']['tl_committees']['commission_options'][$row['commission']] . ' | ' . WBGym\WBGym::cParent($row['p_id']);
 				break;
 			case 'VTst' :
-				$args = WBGym\WBGym::student($row['m_id'],false) . ', ' . $GLOBALS['TL_LANG']['tl_committees']['commission_options'][$row['commission']];
+				$args = $GLOBALS['TL_LANG']['tl_committees']['commission_options'][$row['commission']] . ' | ' . WBGym\WBGym::student($row['m_id'],false);
 				break;
 			case 'VTte' : 
-				$args = WBGym\WBGym::teacher($row['m_id']) . ', ' . $GLOBALS['TL_LANG']['tl_committees']['commission_options'][$row['commission']];
+				$args = $GLOBALS['TL_LANG']['tl_committees']['commission_options'][$row['commission']] . ' | ' .WBGym\WBGym::teacher($row['m_id']);
 				break;
 		}
 		return $args;
 	}
+
+	public function getCommissionOptions(DataContainer $dc) 
+	{
+		if ($dc->activeRecord->type == 'VTte')
+		{
+			return ['BEK','BSK','MdKl'];
+		}
+		elseif ($dc->activeRecord->type == 'VTst')
+		{
+			return ['Ssp','SspST','BLK','BEK','MdKs'];
+		}
+		elseif ($dc->activeRecord->type == 'VTpa')
+		{
+			return ['Esp','EspST','BLK','BSK','MdKl'];
+		}
+		return ['Ssp','SspST','BLK','BEK','BSK','MdKs','MdKl','MdKe','Esp','EspST'];
+	}
 	
-	public function memberList() {
+	public function memberList(DataContainer $dc) 
+	{
+		$type = $dc->activeRecord->type;
+
+		if ($type == 'VTst' || $type == 'SKst' || $type == 'SKstST') 
+		{
+			return WBGym\WBGym::studentList();
+		}
+		elseif ($type == 'VTte' || $type == 'SKte' || $type == 'SKteST') 
+		{
+			return WBGym\WBGym::teacherList();
+		}
+
 		return WBGym\WBGym::studentList() + WBGym\WBGym::teacherList();
 	}
 	
