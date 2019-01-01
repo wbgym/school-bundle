@@ -16,6 +16,7 @@
 $GLOBALS['TL_LANG']['tl_committees']['type']			= array('Typ', 'Bitte geben Sie den Typ des Vertreters an.');
 $GLOBALS['TL_LANG']['tl_committees']['course']		= array('von Kurs', 'Wählen Sie den Kurs des Kindes des Vertreters');
 $GLOBALS['TL_LANG']['tl_committees']['m_id']		= array('Person', 'Wählen Sie die Person aus.');
+$GLOBALS['TL_LANG']['tl_committees']['m_str']		= array('Person/-en', 'Geben Sie die Person/-en an.');
 $GLOBALS['TL_LANG']['tl_committees']['p_id']		= array('Elternteil', 'Geben Sie das Elternteil an. Elternteile können unter "Elternteile verwalten" angelegt werden.');
 $GLOBALS['TL_LANG']['tl_committees']['commission']		= array('Kommission/Funktion', 'Geben Sie die Bezeichnung der Funktion und die Kommission an.');
 
