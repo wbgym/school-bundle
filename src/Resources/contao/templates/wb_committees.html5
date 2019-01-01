@@ -33,15 +33,15 @@
 			<?php endif; ?>
 			
 			<?php if(isset($data['SKst']) || isset($data['SKstST'])) : ?>
-				<tr><th>Schüler</th><td><?php foreach ($data['SKst'] as $elem) : ?><?= $elem['m_str'] ?><br /><?php endforeach; ?></td><td><?php foreach ($data['SKstST'] as $elem) : ?><?= $elem['m_str'] ?><br /><?php endforeach; ?></td></tr>
+				<tr><th>Schüler</th><td><?php if(isset($data['SKst'])) : ?><?php foreach ($data['SKst'] as $elem) : ?><?= $elem['m_str'] ?><br /><?php endforeach; ?><?php endif; ?></td><td><?php if(isset($data['SKstST'])) : ?><?php foreach ($data['SKstST'] as $elem) : ?><?= $elem['m_str'] ?><br /><?php endforeach; ?><?php endif; ?></td></tr>
 			<?php endif; ?>
 			
 			<?php if(isset($data['SKte']) || isset($data['SKteST'])) : ?>
-				<tr><th>Lehrer</th><td><?php foreach ($data['SKte'] as $elem) : ?><?= $elem['m_str'] ?><br /><?php endforeach; ?></td><td><?php foreach ($data['SKteST'] as $elem) : ?><?= $elem['m_str'] ?><br /><?php endforeach; ?></td></tr>
+				<tr><th>Lehrer</th><td><?php if(isset($data['SKte'])) : ?><?php foreach ($data['SKte'] as $elem) : ?><?= $elem['m_str'] ?><br /><?php endforeach; ?><?php endif; ?></td><td><?php if(isset($data['SKteST'])) : ?><?php foreach ($data['SKteST'] as $elem) : ?><?= $elem['m_str'] ?><br /><?php endforeach; ?><?php endif; ?></td></tr>
 			<?php endif; ?>
 			
 			<?php if(isset($data['SKpa']) || isset($data['SKpaST'])) : ?>
-				<tr><th>Eltern</th><td><?php foreach ($data['SKpa'] as $elem) : ?><?= $elem['m_str'] ?><br /><?php endforeach; ?></td><td><?php foreach ($data['SKpaST'] as $elem) : ?><?= $elem['m_str'] ?><br /><?php endforeach; ?></td></tr>
+				<tr><th>Eltern</th><td><?php if(isset($data['SKpa'])) : ?><?php foreach ($data['SKpa'] as $elem) : ?><?= $elem['m_str'] ?><br /><?php endforeach; ?><?php endif; ?></td><td><?php if(isset($data['SKpaST'])) : ?><?php foreach ($data['SKpaST'] as $elem) : ?><?= $elem['m_str'] ?><br /><?php endforeach; ?><?php endif; ?></td></tr>
 			<?php endif; ?>
 			
 		</tbody></table></div>
