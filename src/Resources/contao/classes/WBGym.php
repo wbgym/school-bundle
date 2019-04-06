@@ -20,30 +20,32 @@ class WBGym extends \System {
 
 	protected static $objInstance;
 
-	protected static $arrTeachers = array();
+	protected static $arrTeachers = [];
 	protected static $arrTeachersLoaded = false;
 
-	protected static $arrStudents = array();
+	protected static $arrStudents = [];
 	protected static $arrStudentsLoaded = false;
 	
-	protected static $arrParents = array();
+	protected static $arrParents = [];
 	protected static $arrParentsLoaded = false;
 	
-	protected static $arrCParents = array();
+	protected static $arrCParents = [];
 	protected static $arrCParentsLoaded = false;
 
-	protected static $arrSubjects = array();
+	protected static $arrSubjects = [];
 	protected static $arrSubjectsLoaded = false;
 	
-	protected static $arrCourses = array();
+	protected static $arrCourses = [];
 	protected static $arrCoursesLoaded = false;
 	
-	protected static $arrSmsCourses = array();
+	protected static $arrSmsCourses = [];
 	protected static $arrSmsCoursesLoaded = false;
 	
-	protected static $arrTdwLectures = array();
+	protected static $arrTdwLectures = [];
 	protected static $arrTdwLecturesLoaded = false;
 	
+	protected static $arrSchoolYear = [];
+	protected static $arrSchoolYearLoaded = false;
 
 	/**
 	 * Clean the global GPC arrays
@@ -56,8 +58,11 @@ class WBGym extends \System {
 	* @return int
 	*/
 	public static function schoolYear() {
-		$res = \Database::getInstance()->query("SELECT * FROM tl_schoolyear");
-		while($arrRow = $res->fetchAssoc()) {
+		if (!static::$arrSchoolYearLoaded) {
+			static::$arrSchoolYear = \Database::getInstance()->query("SELECT * FROM tl_schoolyear")->fetchAllAssoc();
+			static::$arrSchoolYearLoaded = true;
+		}
+		foreach (static::$arrSchoolYear as $arrRow) {
 			if($arrRow['start'] < time() && $arrRow['end'] > time()) {
 				return date('Y',$arrRow['end']);
 			}
