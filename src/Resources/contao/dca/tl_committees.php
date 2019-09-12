@@ -211,7 +211,7 @@ class tl_committees extends Backend
 		}
 		elseif ($dc->activeRecord->type == 'VTpa')
 		{
-			return ['Esp','EspST','BLK','BSK','MdKl'];
+			return ['Esp','EspST','BLK','BSK','MdKe'];
 		}
 		return ['Ssp','SspST','BLK','BEK','BSK','MdKs','MdKl','MdKe','Esp','EspST'];
 	}
