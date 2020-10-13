@@ -2,16 +2,16 @@
 
 /**
  * WBGym
- * 
+ *
  * Copyright (C) 2008-2017 Webteam Weinberg-Gymnasium Kleinmachnow
- * 
+ *
  * @package 	WGBym
  * @author 		Marvin Ritter <marvin.ritter@gmail.com>
  * @license 	http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
 /**
- * Table tl_content 
+ * Table tl_content
  */
 $GLOBALS['TL_DCA']['tl_content']['palettes']['wb_subject_details']	= '{type_legend},type,wb_subject,headline;{protected_legend:hide},protected;{expert_legend:hide},guests,invisible,cssID,space';
 $GLOBALS['TL_DCA']['tl_content']['palettes']['wb_faculty_subjects']	= '{type_legend},type,wb_faculty;{protected_legend:hide},protected;{expert_legend:hide},guests,invisible,cssID,space';
@@ -65,4 +65,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['wb_ml_template'] = array
 	'sql'					=> "varchar(63) NOT NULL default ''"
 );
 
-?>
+
+// Make YouTube Splash Image mandatory for privacy
+
+$GLOBALS['TL_DCA']['tl_content']['fields']['splashImage']['eval']['mandatory'] = true;
