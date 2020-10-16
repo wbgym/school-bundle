@@ -276,8 +276,8 @@ class WBCalendar extends \System {
 			$intTime = strtotime($strDate);
 			$calWeekday = strtolower(date('D',$intTime));
 			$blnIsAllDate = $calWeekday == $strWeekdayAll && !is_array($info);
-			$blnIsADate = $calWeekday == $strWeekdayA && strtolower($info) == 'a';
-			$blnIsBDate = $calWeekday == $strWeekdayB  && strtolower($info) == 'b';
+			$blnIsADate = $calWeekday == $strWeekdayA && !is_array($info) && strtolower($info) == 'a';
+			$blnIsBDate = $calWeekday == $strWeekdayB  && !is_array($info) && strtolower($info) == 'b';
 
 			if($blnIsAllDate || $blnIsADate || $blnIsBDate || is_array($info) && $blnHolidays) {
 				$arrDates[] = $strDate;

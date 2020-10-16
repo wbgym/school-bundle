@@ -9,6 +9,7 @@
 		<th>Klassenstufen</th>
 		<th>Zeitpunkt der Treffen</th>
 		<th>Ort</th>
+		<th>Details</th>
 	</tr>
 </thead></tbody>
 	<?php foreach ($this->workshops as $arrWorkshop) : ?>
@@ -18,6 +19,7 @@
         <td><?php if ($arrWorkshop['minGrade'] == $arrWorkshop['maxGrade']) : ?><?php echo $arrWorkshop['minGrade']; ?><?php endif; ?><?php if ($arrWorkshop['minGrade'] != $arrWorkshop['maxGrade']) : ?><?php echo $arrWorkshop['minGrade']; ?> - <?php echo $arrWorkshop['maxGrade']; ?><?php endif; ?></td>
 		<td><?= $arrWorkshop['time_string'] ?></td>
 		<td><?php echo $arrWorkshop['room']; ?></td>
+		<td><?php if ($arrWorkshop['page']) : ?><button>Details</button><?php endif; ?></td>
 	</tr>
 	<?php endforeach; ?>
 </tbody></table></div>

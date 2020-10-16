@@ -8,6 +8,5 @@
     <p class="icon lock"><strong>Klassenstufen: </strong><?php if($this->workshop['minGrade'] == $this->workshop['maxGrade']) : ?><?= $this->workshop['minGrade'] ?><?php else : ?><?= $this->workshop['minGrade'] ?> - <?= $this->workshop['maxGrade'] ?><?php endif; ?></p>
     <p class="icon clock"><strong>Zeitpunkt der Treffen: </strong><?= $this->workshop['time_string'] ?></p>
     <p class="icon location"><strong>Ort: </strong><?= $this->workshop['room'] ?></p>
-    <hr />
     <p class="icon notification-filled"><strong>Nächstes reguläres Treffen: </strong><?= $this->workshop['next'] ?></p>
 </div>
