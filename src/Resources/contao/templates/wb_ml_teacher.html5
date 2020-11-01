@@ -4,99 +4,43 @@
 <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
 <?php endif; ?>
 
-			<script>
-				var conn = Math.pow(2,6);
-				var connString = String.fromCharCode(conn);
-				var global1 = 'wbgym';
-				var global2 = '.';
-				var global3 = 'de';
-				
-					var clm = document.getElementsByClassName('email_clm');
-					
-					var t = new Array();
-					for (i=0; i<100000; i++){  
-						t[i] = new Array(2);
-					}
-				
-			</script>
-			<script>
-				
-					//sticky (div which sticks at the top of the screen) for e.g. sms-choice module
-	$(window).scroll(sticky_relocate);
-	$(function() {
-		sticky_relocate();
-	});
-
-function sticky_relocate() {
-	var window_top = $(window).scrollTop();
-	var anchor = $('.info-anchor').offset().top;
-		if (window_top > anchor) {
-			$('.sticky').find('.info').addClass('stick');
-		} else {
-			$('.sticky').find('.info').removeClass('stick');
-		}
-}
-			
-			</script>
-			
-			<div id="sticky" class="sticky">
-				<div class="info-anchor"></div>
-				<div class="info icon">
-					Aus Spamschutz-Gründen sind E-Mail-Adressen erst nach Klick sichtbar&nbsp;
-					<button class="showMails" onclick="showMails()">E-Mails anzeigen</button></div>
-			</div>
-			
-<div class="table"><table><thead>
-	<tr>
-		<th>Name</th>
-		<th>Fächer</th>
-		<th>Kürzel</th>
-		<th>E-Mail Adresse</th>
-	</tr>
-</thead></tbody>
+<div class="table">
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Fächer</th>
+        <th>Kürzel</th>
+        <th>E-Mail Adresse</th>
+      </tr>
+    </thead>
+    <tbody>
 	<?php $i = 0; ?>
 	<?php foreach ($this->arrData['members'] as $arrMember) : ?>
-		<?php if ($arrMember['disable'] != 1) : ?>
+		<?php if ($arrMember['disable'] !== 1  || $arrMember['referendar'] === 1) : ?>
 			<tr>
 				<td>
 					<?php echo $arrMember['name']; ?>
-					<?php if($arrMember['referendar'] == 1) : ?>
-						<div class="abbr">
-							<div class="invisible abbr-title">Referendar/Praktikant</div>
-							<span class="info">R</span>
-						</div>
-					<?php endif; ?>
 				</td>
-				<td><?php echo $arrMember['subjectsAbbreviations']; ?></td>
+				<td>
+          <?php foreach ($arrMember['subjects'] as $sub) : ?>
+            <span class="abbr pointer">
+              <?= $sub['abbr'] ?>
+              <span class="abbr-title invisible">
+                <?= $sub['title'] ?>
+              </span>
+            </span>
+          <?php endforeach; ?>
+        </td>
 				<td><?php echo $arrMember['acronym']; ?></td>
-				<td id="email_clm<?php echo $i; ?>">
-
-				</td>
+				<td><?= $this->replaceInsertTags('{{email_secure::'.$arrMember['email'].'}}') ?></td>
 			</tr>
 			<?php $i++; ?>
 			<?php endif; ?>
 	<?php endforeach; ?>
-			
-			<script>
-					function showMails() {
-					<?php $i = 0; ?>
-					<?php foreach ($this->arrData['members'] as $arrMember) : ?>
-						<?php if($arrMember['disable'] != 1) : ?>
-						t[<?php echo $i; ?>][0] = '<?php echo $arrMember['localEmail1']; ?>';
-						t[<?php echo $i; ?>][1] = '<?php echo $arrMember['localEmail2']; ?>';
-								
-						document.getElementById('email_clm<?php echo $i; ?>').innerHTML =
-							'<a target="_blank" href=' + 'ma' + 'il' + 't' + 'o:' + t[<?php echo $i; ?>][0] + '.' + t[<?php echo $i; ?>][1]  + connString + global1 + global2 + global3 + '>' +
-							t[<?php echo $i; ?>][0]  + '.' + t[<?php echo $i; ?>][1]  + connString + global1 + global2 + global3;
-						
-						document.getElementById('sticky').innerHTML = '';
-							
-							<?php $i++; ?>
-						<?php endif; ?>
-					<?php endforeach; ?>
-					}
-				</script>
-	
-</body></table></div>
+
+  </tbody>
+  </table>
+</div>
 
 </section>
