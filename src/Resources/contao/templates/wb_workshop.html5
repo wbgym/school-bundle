@@ -11,7 +11,7 @@
 		<th>Ort</th>
 		<th>Details</th>
 	</tr>
-</thead></tbody>
+</thead><tbody>
 	<?php foreach ($this->workshops as $arrWorkshop) : ?>
 	<tr <?php if ($arrWorkshop['page']) : ?>class="link" onclick="document.location='{{link_url::<?php echo $arrWorkshop['page']; ?>}}'"<?php endif;?>>
 		<th><?php echo $arrWorkshop['name']; ?></th>

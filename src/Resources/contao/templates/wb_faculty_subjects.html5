@@ -8,7 +8,7 @@
 		<th>Fachbereichsleiter</th>
 		<th>Fachräume</th>
 	</tr>
-</thead></tbody>
+</thead><tbody>
 	<?php foreach ($this->subjects as $arrSubject) : ?>
 	<?php if($arrSubject['visible'] && $arrSubject['isSubject'] == 1) : ?>
 	<tr <?php if ($arrSubject['page']) : ?>class="link" onclick="document.location='{{link_url::<?php echo $arrSubject['page']; ?>}}'"<?php endif;?>>
