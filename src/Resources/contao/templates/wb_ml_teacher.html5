@@ -17,7 +17,7 @@
     <tbody>
 	<?php $i = 0; ?>
 	<?php foreach ($this->arrData['members'] as $arrMember) : ?>
-		<?php if ($arrMember['disable'] !== 1  || $arrMember['referendar'] === 1) : ?>
+		<?php if (!$arrMember['disable']  && !$arrMember['referendar']) : ?>
 			<tr>
 				<td>
 					<?php echo $arrMember['name']; ?>
